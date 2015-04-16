@@ -1,4 +1,4 @@
-pyspider [![Build Status]][Travis CI] [![Coverage Status]][Coverage] [![Try]][Demo]
+Pyspider [![Build Status]][Travis CI] [![Coverage Status]][Coverage] [![Try]][Demo]
 ========
 
 * pyspider -c config.json
