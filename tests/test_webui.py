@@ -404,3 +404,15 @@ class TestWebUI(unittest.TestCase):
     def test_x50_tasks(self):
         rv = self.app.get('/tasks')
         self.assertEqual(rv.status_code, 502)
+
+    def test_index_create_button(self):
+        rv = self.app.get('/')
+        self.assertEqual(rv.status_code, 200)
+        rv = self.app.get('/create')
+        self.assertEqual(rv.status_code, 200)
+
+    def test_index_create_prompt(self):
+        rv = self.app.get('/create')
+        self.assertIn(b'Title', rv.data)
+        self.assertIn(b'Group', rv.data)
+        self.assertIn(b'Target Website', rv.data)
