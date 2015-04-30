@@ -156,9 +156,17 @@ window.SelectorHelper = (function() {
           current_path = ev.data.path;
         }
       });
-
+      
+      /* Implement "enable css selector" button "disabled" state */
       $("#J-enable-css-selector-helper").on('click', function() {
         _this.clear();
+        if($(this).hasClass("disabled")) {
+            $('#tab-messages pre').html('"enable-css-selector-helper" button is disabled.');
+            $('#tab-control li[data-id="tab-messages"]').addClass('active');
+            $('#debug-tabs .tab').hide();
+            $('#debug-tabs #tab-messages').show();
+            return;
+        }
         $("#tab-web iframe")[0].contentWindow.postMessage({
           type: 'enable_css_selector_helper'
         }, '*');
@@ -332,7 +340,16 @@ window.Debugger = (function() {
       var _this = this;
       $('#tab-control > li[data-id]').on('click', function() {
         $('#tab-control > li[data-id]').removeClass('active');
-        var name = $(this).addClass('active').data('id');
+        var name = $(this).data('id');
+        /* Implement "disabled" state for all buttons except for "enable css selector" (see above)*/
+        if($(this).hasClass("disabled")) {
+            $('#tab-messages pre').html(name+' button is disabled.');
+            $('#tab-control li[data-id="tab-messages"]').addClass('active');
+            $('#debug-tabs .tab').hide();
+            $('#debug-tabs #tab-messages').show();
+            return;
+        }
+        $(this).addClass('active');
         $('#debug-tabs .tab').hide();
         $('#debug-tabs #'+name).show();
       });
@@ -481,6 +498,12 @@ window.Debugger = (function() {
       $("#tab-html pre").html('');
       $('#tab-follows').html('');
       $("#tab-control li[data-id=tab-follows] .num").hide();
+      /* The "Run" button is pressed, so enable all tab buttons! */
+      $("#tab-control li[data-id=tab-follows]").addClass('active');
+      $("#tab-control li[data-id=tab-follows]").removeClass('disabled');
+      $("#tab-control li[data-id=tab-html]").removeClass('disabled');
+      $("#tab-control li[data-id=tab-web]").removeClass('disabled');
+      $("#J-enable-css-selector-helper").removeClass('disabled');
       $('#python-log').hide();
       $('#left-area .overlay').show();
 
