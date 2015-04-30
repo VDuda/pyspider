@@ -20,6 +20,9 @@ $.fn.splitter = function (_type) {
     $prev = type === 'x' ? $el.prevAll(':visible:first') : $el.nextAll(':visible:first'),
     $handle = $('<div class="resize"></div>'),
     dragging = false,
+	autoHide = false,
+    autoHideRight = false,
+	autoHideLeft = false,
     width = $parent.width(),
     parentOffset = $parent.offset(),
     left = parentOffset.left,
@@ -124,12 +127,6 @@ $.fn.splitter = function (_type) {
         split = 100 - split;
       }
 
-      // if prev panel is too small and delta is negative, block
-      if (prevSize < 100 && delta < 0) {
-        // ignore
-      } else if (elSize < 100 && delta > 0) {
-        // ignore
-      } else {
         // allow sizing to happen
         $el.css(props[type].cssProp, split + '%');
         $prev.css(props[type].otherCssProp, (100 - split) + '%');
@@ -146,13 +143,51 @@ $.fn.splitter = function (_type) {
           $document.trigger('sizeeditors');
         }, 120);
       }
-    }
+    
 
     function resetPrev() {
       $prev = type === 'x' ? $handle.prevAll(':visible:first') : $handle.nextAll(':visible:first');
     }
-
-    $document.bind('mouseup touchend', function () {
+	
+    $("#left-area, #right-area").bind('dblclick', function(e) {
+		var screenSize= {width: window.innerWidth || document.documentElement.clientWidth|| document.body.offsetWidth,heigh:window.						innerHeight||document.documentElement.clientHeight|| document.body.offsetHeight};	
+		var info = e;
+		
+		var selectedArea = info.currentTarget.attributes[0].nodeValue;
+		//console.log(selectedArea);
+		if (selectedArea == 'right-area'){
+			//console.log("we are in the right-area");
+				if (autoHideRight == false){
+				$("#control").css( "height", "40px");
+				$("#screen-setting").text("You are in Full Screen Mode - Right Area");
+				moveSplitter(1);
+				autoHideRight = true;}
+				else{ moveSplitter((screenSize.width)/2); autoHideRight = false;
+				$("#control").css( "height", "35px");
+				$("#screen-setting").text("");
+				}
+			}
+			else if(selectedArea =='left-area'){
+				if (autoHideLeft == false){
+					$("#control").css( "height", "40px");
+					$("#screen-setting").text("You are in Full Screen Mode - Left Area");
+					$("#save-task-btn").hide("slow");
+					moveSplitter((screenSize.width)-1);
+					autoHideLeft = true;}
+					else{ 
+					moveSplitter((screenSize.width)/2); autoHideLeft = false;
+					$("#control").css( "height", "35px");
+					$("#save-task-btn").show("slow");
+					$("#screen-setting").text("");
+					}
+						
+				//console.log("we are in the left-area");
+				}
+				else{
+					//console.log("ignore");
+					}
+	})
+  $document.bind('mouseup touchend', function () {
       if (dragging) {
         dragging = false;
         $handle.trigger('resize-end');
@@ -174,6 +209,7 @@ $.fn.splitter = function (_type) {
 
     $handle.bind('mousedown touchstart', function (e) {
       dragging = true;
+		
       $handle.trigger('resize-start');
       $body.append($blocker).addClass('dragging');
       props[type].size = $parent[props[type].sizeProp]();
@@ -227,7 +263,7 @@ $.fn.splitter = function (_type) {
       }
 
       if ($el.is(':hidden')) {
-        $handle.hide();
+        $handle.autoHide();
       } else {
         if ($prev.length) {
           $el.css('border-' + props[type].cssProp, '1px solid #ccc');
@@ -249,7 +285,7 @@ $.fn.splitter = function (_type) {
         $handle.appendTo($prev);
         $el.appendTo($prev);
         $prev.css('height', '100%');
-        $originalContainer.hide();
+        $originalContainer.autoHide();
         $handle.css('margin-left', 0);
         $handle.css('margin-top', 5);
 
@@ -330,4 +366,3 @@ $.fn.splitter = function (_type) {
 };
 
 $.fn.splitter.guid = 0;
-
