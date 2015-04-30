@@ -18,6 +18,9 @@ body {
 .error {
   color: #d9534f;
 }
+#screen-setting{
+	color: #428bca;
+	}
 #control {
   z-index: 9999;
   min-width: 760px;
@@ -48,6 +51,8 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+
+
 }
 .resize {
   background-color: #555555;
@@ -181,12 +186,6 @@ body {
 #tab-control li:hover {
   background: #6aa3d5;
   color: white;
-}
-/* This class is used for disabling tab buttons */
-#tab-control li.disabled {
-  background: #eeeeee;
-  color: #c0c0c0;
-  border: #333333;
 }
 #tab-control li.active {
   background: #428bca;
