@@ -156,7 +156,7 @@ $.fn.splitter = function (_type) {
 		if (selectedArea == 'right-area'){
 			//console.log("we are in the right-area");
 				if (autoHideRight == false){
-				$("#control").css( "height", "40px");
+				$("#control").css( "height", "44px");
 				$("#screen-setting").text("You are in Full Screen Mode - Right Area");
 				moveSplitter(1);
 				autoHideRight = true;}
@@ -167,7 +167,7 @@ $.fn.splitter = function (_type) {
 			}
 			else if(selectedArea =='left-area'){
 				if (autoHideLeft == false){
-					$("#control").css( "height", "40px");
+					$("#control").css( "height", "44px");
 					$("#screen-setting").text("You are in Full Screen Mode - Left Area");
 					$("#save-task-btn").hide("slow");
 					moveSplitter((screenSize.width)-1);
