@@ -32,7 +32,7 @@
   </head>
 
   <body>
-    <section id="control">
+    <section id="control"> <center><span id="screen-setting"></span></center>
       <div class="title pull-left"><a href="/">pyspider</a> &gt; {{ project_name }}</div>
       <div class="pull-right">
         <a href="http://docs.pyspider.org/" target="_blank">Documentation</a>
@@ -71,10 +71,10 @@
         </div>
         <ul id="tab-control">
           <li data-id="tab-messages">messages<span class="num" style="display: none;"></span></li>
-          <li data-id="tab-follows" class="disabled">follows<span class="num" style="display: none;"></span></li>
-          <li data-id="tab-html" class="disabled">html</li>
-          <li data-id="tab-web" class="disabled">web</li>
-          <li id="J-enable-css-selector-helper" class="disabled">enable css selector helper</li>
+          <li data-id="tab-follows">follows<span class="num" style="display: none;"></span></li>
+          <li data-id="tab-html">html</li>
+          <li data-id="tab-web" class="active">web</li>
+          <li id="J-enable-css-selector-helper">enable css selector helper</li>
         </ul>
         <div class="overlay" style="display: none;"></div>
       </div>
@@ -97,6 +97,7 @@
     </script>
     <script src="{{ url_for('static', filename='splitter.js') }}"></script>
     <script src="{{ url_for('static', filename='debug.js') }}"></script>
+   
   </body>
 </html>
 <!-- vim: set et sw=2 ts=2 sts=2 ff=unix fenc=utf8 syntax=htmldjango: -->
