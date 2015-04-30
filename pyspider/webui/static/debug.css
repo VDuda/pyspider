@@ -302,7 +302,7 @@ body {
   width: 100%;
   min-height: 10px;
   max-height: 40%;
-  background: rgba(0, 0, 0, 0.6);
+  background: #d9534f;
   overflow: auto;
 }
 #python-log #python-log-show {
