@@ -208,6 +208,11 @@ body {
   background: #6aa3d5;
   color: white;
 }
+#tab-control li.disabled {
+  background: #eeeeee;
+  color: #c0c0c0;
+  border: #333333;
+}
 #tab-control li.active {
   background: #428bca;
   color: white;
