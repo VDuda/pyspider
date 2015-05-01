@@ -81,7 +81,7 @@ my new function I added JQuery code which changes the appearance of the UI when 
 <center><span id="screen-setting"></span></center>
 ```
 
-> Note: I used the depreciated <center> tag to implement the screen-setting information which changes dynamically.
+> Note: I used the depreciated center tag to implement the screen-setting information which changes dynamically.
 
 
 ### pyspider/webui/static/debug.css
