@@ -1,7 +1,10 @@
 Sean Warren's User Manual 
 ----
 
-### v0.4.0.01  
+### v0.4.0.01 
+----
+## Added the ability to Double Click for Full Screen Mode
+## Addded UI Changes
 ----
 
 ### pyspider/webui/static/debug.css
@@ -36,7 +39,7 @@ $("#left-area, #right-area").bind('dblclick', function(e) {
 +		if (selectedArea == 'right-area'){
 +			//console.log("we are in the right-area");
 +				if (autoHideRight == false){
-+				$("#control").css( "height", "40px");
++				$("#control").css( "height", "44px");
 +				$("#screen-setting").text("You are in Full Screen Mode - Right Area");
 +				moveSplitter(1);
 +				autoHideRight = true;}
@@ -47,7 +50,7 @@ $("#left-area, #right-area").bind('dblclick', function(e) {
 +			}
 +			else if(selectedArea =='left-area'){
 +				if (autoHideLeft == false){
-+					$("#control").css( "height", "40px");
++					$("#control").css( "height", "44px");
 +					$("#screen-setting").text("You are in Full Screen Mode - Left Area");
 +					$("#save-task-btn").hide("slow");
 +					moveSplitter((screenSize.width)-1);
@@ -70,11 +73,22 @@ $("#left-area, #right-area").bind('dblclick', function(e) {
 > I created a variable called screenSize to get the width of the browsers window. I also created another variable selectedArea, which uses the data coming from the binded function to tell me what area the user has pressed. Throughout
 my new function I added JQuery code which changes the appearance of the UI when you Enter Full Screen Mode. 
 
-- [x] local mode, load script from file.
-- [x] works as a framework (all components running in one process, no threads)
-- [ ] redis
-- [x] shell mode like `scrapy shell` 
-- [ ] a visual scraping interface like [portia](https://github.com/scrapinghub/portia)
+### pyspider/webui/templates/debug.html
+----
+- [x] added a span tag to use with my jquery function on the debug template
+
+```html
+<center><span id="screen-setting"></span></center>
+```
+
+> Note: I used the depreciated <center> tag to implement the screen-setting information which changes dynamically.
+
+
+### pyspider/webui/static/debug.css
+----
+- [x] changed the background color
+
+> I changed the color of #python-log because our team felt like the UI didn't flow to well.
 
 License
 -------
