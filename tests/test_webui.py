@@ -444,3 +444,5 @@ class TestWebUI(unittest.TestCase):
         rv = self.app.post('/debug', data={
             'project': 'test_project',
         }))
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn(b'debugger', rv.data)
