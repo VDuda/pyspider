@@ -517,14 +517,32 @@ class TestWebUI(unittest.TestCase):
         self.assertIn('<li data-id="J-enable-css-selector-helper" class="disabled">', rv.data)
         self.assertIn('<li data-id="tab-follows" class="disabled">', rv.data)
 
-    def test_index_create_button(self):
+    def test_index_create_button_exists(self):
         rv = self.app.get('/')
         self.assertEqual(rv.status_code, 200)
-        rv = self.app.get('/create')
-        self.assertEqual(rv.status_code, 200)
+        self.assertIn('''
+            <button 
+                class="
+                    btn 
+                    btn-default 
+                    btn-primary
+                " 
+                data-toggle="modal" 
+                data-target="#confirm-create"
+            >
+            ''', 
+            rv.data
+        )
 
-    def test_index_create_prompt(self):
-        rv = self.app.get('/create')
-        self.assertIn(b'Title', rv.data)
-        self.assertIn(b'Group', rv.data)
-        self.assertIn(b'Target Website', rv.data)
+    def test_index_create_prompt_exists(self):
+        rv = self.app.get('/')
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn(b'Project Name', rv.data)
+        self.assertIn(b'Target website', rv.data)
+        self.assertIn(b'Grouping', rv.data)
+        self.assertIn(b'id="confirm-create"', rv.data)
+
+    def test_index_posts_to_create_path(self):
+        rv = self.app.post('/debug', data={
+            'project': 'test_project',
+        }))
