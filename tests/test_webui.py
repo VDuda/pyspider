@@ -544,7 +544,9 @@ class TestWebUI(unittest.TestCase):
 
     def test_index_posts_to_create_path(self):
         rv = self.app.post('/create', data={
-            'project': 'test_project',
+            'name': "Test-project",
+            'target': "www.This-Does-Not-Matter-Yet.com",
+            'group': "Group of Winners"
         }))
         self.assertEqual(rv.status_code, 200)
         self.assertIn(b'project-create', rv.data)
