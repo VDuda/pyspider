@@ -543,8 +543,8 @@ class TestWebUI(unittest.TestCase):
         self.assertIn(b'id="confirm-create"', rv.data)
 
     def test_index_posts_to_create_path(self):
-        rv = self.app.post('/debug', data={
+        rv = self.app.post('/create', data={
             'project': 'test_project',
         }))
         self.assertEqual(rv.status_code, 200)
-        self.assertIn(b'debugger', rv.data)
+        self.assertIn(b'project-create', rv.data)
