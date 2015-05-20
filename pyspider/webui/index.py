@@ -30,32 +30,36 @@ def project_save():
     project = request.form['name']
     target_site = request.form['target'] # Won't do anything with this data just yet
     group = request.form['group']
-
-    if re.search(r"[^\w]", project):
-        print("\n--In here--\n")
-        return 'project name is not allowed!', 400
+    will_save = True if request.form['save'].upper() == "TRUE" else False
 
     projectdb = app.config['projectdb']
-    info = {
-            'name': project,
-            'status': 'TODO',
-            'rate': app.config.get('max_rate', 1),
-            'burst': app.config.get('max_burst', 3),
-            'group': group,
-            'script': (default_script
-                  .replace('__DATE__', datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-                  .replace('__PROJECT_NAME__', project)),
+    
+    if not project or re.search(r"[^\w]", project):
+        return 'Project name is not allowed!', 400
+    if projectdb.get(project):
+        return 'Project already exists!', 400
+    if will_save:
+        print("SAVING PROJECT--------")
+        info = {
+                'name': project,
+                'status': 'TODO',
+                'rate': app.config.get('max_rate', 1),
+                'burst': app.config.get('max_burst', 3),
+                'group': group,
+                'script': (default_script
+                      .replace('__DATE__', datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                      .replace('__PROJECT_NAME__', project)),
 
-        }
-    projectdb.insert(project, info)
-
-    rpc = app.config['scheduler_rpc']
-    if rpc is not None:
-        try:
-            rpc.update_project()
-        except socket.error as e:
-            app.logger.warning('connect to scheduler rpc error: %r', e)
-            return 'rpc error', 200
+            }
+        projectdb.insert(project, info)
+        
+        rpc = app.config['scheduler_rpc']
+        if rpc is not None:
+            try:
+                rpc.update_project()
+            except socket.error as e:
+                app.logger.warning('connect to scheduler rpc error: %r', e)
+                return 'rpc error', 200
 
     return 'ok', 200
 

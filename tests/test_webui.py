@@ -415,6 +415,6 @@ class TestWebUI(unittest.TestCase):
             'name': "Test-project",
             'target': "www.This-Does-Not-Matter-Yet.com",
             'group': "Group of Winners"
-        }))
+        })
         self.assertEqual(rv.status_code, 200)
         self.assertIn(b'project-create', rv.data)

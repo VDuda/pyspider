@@ -55,22 +55,30 @@ $(function() {
 
   $('.project-create').on('click', function() {
     var formData = $('form').serializeArray();
-    console.log(formData);
     var project = formData[0].value;
-    if (project && project.search(/[^\w]/) == -1) {
-      $.ajax({
-          type: "POST",
-          url: location.pathname+'create',
-          data: {
-            'name': project,
-            'target': formData[1].value,
-            'group': formData[2].value
-          }
-        });
-      location.href = "/debug/"+project;
-    } else {
-      alert('project name not allowed!');
-    }
+    var target = formData[1].value;
+    var group = formData[2].value;
+    var save = document.getElementById('modal-form-checkbox').checked;
+    console.log(location.pathname+'debug/'+project);
+    console.log(formData);
+    console.log("Status-Save: "+save);
+    $.ajax({
+        type: "POST",
+        url: location.pathname+"create",
+        data: {
+          'name': project,
+          'target': target,
+          'group': group,
+          'save': save,
+        },
+        success: function (data) {
+          location.href = "/debug/"+project;
+        }, 
+        error: function (xhr, textStatus, errorThrown) {
+          console.log(xhr, textStatus, errorThrown);
+          alert(xhr.responseText);
+        },
+    });
   });
 
   $('.project-run').on('click', function() {
