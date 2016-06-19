@@ -57,57 +57,34 @@
           <button class="project-create btn btn-default btn-primary" data-toggle="modal" data-target="#create-project-modal">Create</button>
         </div>
 
-        <div class="active-btn-div">
-          {% if config.scheduler_rpc is not none %}
-            <a class="btn btn-default btn-info" href='/tasks' target=_blank>Recent Active Tasks</a>
-          {% endif %}
-        </div>
+    <section>
+      <div class="modal fade" id="confirm-create" tabindex="-1" role="dialog" aria-labelledby="create-dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
 
-        <div class="modal fade" id="create-project-modal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Create New Project</h4>
-              </div>
-              <form class="form-horizontal" method="POST">
-                <div class="modal-body">
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label" for="project-name">Project Name</label>
-                    <div class="col-sm-9">
-                      <input class="form-control" type="text" name="project-name" autocomplete="off">
-                      <span class="help-block" style="display: none;">[a-zA-Z0-9_]+</span>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label" for="start-urls">Start URL(s)</label>
-                    <div class="col-sm-9">
-                      <input class="form-control" type="text" name="start-urls">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label" for="script-mode">Mode</label>
-                    <div class="col-sm-9">
-                      <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-default active">
-                          <input type="radio" name="script-mode" id="mode-script" autocomplete="off" value="script" checked> Script
-                        </label>
-                        <label class="btn btn-default">
-                          <input type="radio" name="script-mode" id="mode-slime" autocomplete="off" value="slime"> Slime
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Create</button>
-                </div>
-              </form>
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Create New Project</h4>
             </div>
-          </div>
-        </div>
-      </div>
+
+            <div class="modal-body">
+              <form class="project-create-my" name="create">
+                <label class="label" for="project">Project Name</label><br>
+                <input type="text" name="name" class="input-xlarge"><br>
+                <label class="label" for="target-site">Target website</label><br>
+                <input type="email" name="site" class="input-xlarge"><br>
+                <label class="label" for="pyspider-grouping">Grouping</label><br>
+                <input type="text" name="grouping" class="input-xlarge"><br>
+              </form>
+              <p class="debug-url"></p>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <a class="project-create btn btn-ok btn-primary">Create</a>
+    </section>
+    <section>
+>>>>>>> Refactoring and cleaning out comments in index.html
       <table class="table sortable-theme-bootstrap projects">
         <thead>
           <tr>
@@ -182,6 +159,19 @@
           {% endfor %}
         </tbody>
       </table>
+      <div class="global-btn clearfix">
+        <div class="pull-left">
+          {% if config.scheduler_rpc is not none %}
+          <a class="btn btn-default btn-info" href='/tasks' target=_blank>Recent Active Tasks</a>
+          {% endif %}
+        </div>
+        <div class="pull-right">
+          <button class="btn btn-default btn-primary" data-toggle="modal" data-target="#confirm-create">
+            Create
+          </button>
+        </div>
+      </div>
+>>>>>>> Refactoring and cleaning out comments in index.html
     </section>
     <script src="{{ url_for('cdn', path='twitter-bootstrap/3.1.1/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('cdn', path='x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js') }}"></script>
@@ -189,5 +179,3 @@
     <script src="{{ url_for('static', filename='index.js') }}"></script>
   </body>
 </html>
-<!-- vim: set et sw=2 ts=2 sts=2 ff=unix fenc=utf8 syntax=htmldjango: -->
-
