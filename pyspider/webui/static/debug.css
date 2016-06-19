@@ -18,9 +18,6 @@ body {
 .error {
   color: #d9534f;
 }
-#screen-setting{
-	color: #428bca;
-	}
 #control {
   z-index: 9999;
   min-width: 760px;
@@ -71,8 +68,6 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-
-
 }
 .resize {
   background-color: #555555;
@@ -208,11 +203,6 @@ body {
   background: #6aa3d5;
   color: white;
 }
-#tab-control li.disabled {
-  background: #eeeeee;
-  color: #c0c0c0;
-  border: #333333;
-}
 #tab-control li.active {
   background: #428bca;
   color: white;
@@ -320,7 +310,7 @@ body {
   width: 100%;
   min-height: 10px;
   max-height: 40%;
-  background: #d9534f;
+  background: rgba(0, 0, 0, 0.6);
   overflow: auto;
 }
 #python-log #python-log-show {
