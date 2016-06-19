@@ -53,6 +53,27 @@ $(function() {
     url: "/update"
   });
 
+  $('.project-create').on('click', function() {
+    var formData = $('form').serializeArray();
+    console.log(formData);
+    var project = formData[0].value;
+    if (project && project.search(/[^\w]/) == -1) {
+      $.ajax({
+          type: "POST",
+          url: location.pathname+'create',
+          data: {
+            'name': project,
+            'target': formData[1].value,
+            'group': formData[2].value
+          }
+        });
+      location.href = "/debug/"+project;
+    } else {
+      alert('project name not allowed!');
+    }
+  });
+
+>>>>>>> Added new route for create and added respective UI functionality
   $('.project-run').on('click', function() {
     var project = $(this).parents('tr').data("name");
     var status = $(this).parents('tr').find(".project-status [data-value]").data("value");
@@ -61,7 +82,7 @@ $(function() {
     if (status != "RUNNING" && status != "DEBUG") {
       $("#need-set-status-alert").show();
     }
-    
+
     var _this = this;
     $(this).addClass("btn-warning");
     $.ajax({
